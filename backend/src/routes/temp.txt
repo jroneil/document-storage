@@ -1,0 +1,4 @@
+No overload matches this call.
+  The last overload gave the following error.
+    Argument of type '(req: AuthRequest, res: Response<{ message: string; success: boolean; data?: unknown; error?: unknown; }, Record<string, any>>) => Promise<Response<{ message: string; success: boolean; data?: unknown; error?: unknown; }, Record<...>>>' is not assignable to parameter of type 'Application<Record<string, any>>'.
+      Type '          (req: AuthRequest, res: Response<{ message: string; success: boolean; data?: unknown; error?: unknown; }, Record<string, any>>) => Promise<Response<{ message: string; success: boolean; data?: unknown; error?: unknown; }, Record<...>>>' is missing the following properties from type 'Application<Record<string, any>>': init, defaultConfiguration, engine, set, and 63 more.
