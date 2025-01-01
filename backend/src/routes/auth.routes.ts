@@ -10,6 +10,7 @@ interface AuthRequest extends Request {
 const router = Router();
 router.post('/register', authController.register); 
 router.post('/login', authController.login);
+router.post('/verify', authController.verify);;
 
 // Example of a protected route
 router.get('/profile', auth, (req: AuthRequest, res) => {

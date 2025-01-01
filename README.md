@@ -55,6 +55,11 @@ AWS_BUCKET_NAME=your_bucket_name
 4. Start MongoDB:
 ```bash
 docker run -d -p 27017:27017 --name document-storage-mongo mongo:latest
+npm run seed
+docker build -t robo3t .
+
+
+
 ```
 
 5. Start the backend server:
@@ -89,6 +94,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 - Tailwind CSS
 - React Query
 - NextAuth.js
+- Zod
 
 ### Backend
 - Node.js

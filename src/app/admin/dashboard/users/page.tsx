@@ -1,5 +1,9 @@
 'use client';
 
+import { getUsers } from '@/actions/user-actions';
+import { User } from '@/interfaces/users';
+import { useAuth } from '@/contexts/AuthContext';
+
 import { useEffect, useState } from 'react';
 import {
   Box,
@@ -23,12 +27,7 @@ import {
 import axios from 'axios';
 import BreadcrumbsComponent from '@/components/Breadcrumbs';
 
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-}
+
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -36,18 +35,26 @@ export default function UsersPage() {
   const [error, setError] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
   const [newUser, setNewUser] = useState({ name: '', email: '', role: 'user' });
-
+  const [isLoading, setIsLoading] = useState(true);
+  const { token, user } = useAuth();
   useEffect(() => {
+  console.log("@@@@@@ Token="+token)
     fetchUsers();
-  }, []);
+  }, [token]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async () => { // Extracted fetch logic
+    setIsLoading(true);
+    setError("");
     try {
-      const response = await axios.get('/api/users');
-      setUsers(response.data.data);
-    } catch (error) {
-      setError('Error fetching users.');
-      console.error('Fetch error:', error);
+      if(token){
+      const fetchedUsers = await getUsers(token);
+      console.log("fetchedUsers.length---"+fetchedUsers.length)
+      setUsers(fetchedUsers);
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 

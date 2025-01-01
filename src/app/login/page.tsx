@@ -22,8 +22,8 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       await login(email, password);
-    } catch (error) {
-      setError('Invalid credentials');
+    } catch (err: any) {
+      setError(err.message || 'Invalid credentials');
     }
   };
 
