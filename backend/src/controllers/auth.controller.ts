@@ -134,20 +134,22 @@ export const authController = {
       const token = authHeader?.split(' ')[1];
 
       if (!token) {
-        return res.status(401).json({
+        res.status(401).json({
           success: false,
           message: 'No token provided',
         });
+        return; // Prevent further execution
       }
 
       try {
         const decoded = jwt.verify(token, config.jwt.secret) as { id: string, iat: number, exp: number }; // Correct type assertion
 
         if (!decoded || !decoded.id) { // Simplified check
-          return res.status(401).json({
+            res.status(401).json({
             success: false,
-            message: 'Invalid token: Missing user ID',
+              message: 'Invalid token: Missing user ID',
           });
+          return; // Prevent further execution
         }
 
         res.status(200).json({
@@ -160,10 +162,11 @@ export const authController = {
         return;
       } catch (error) {
         console.error('Error verifying token:', error);
-        return res.status(401).json({
+          res.status(401).json({
           success: false,
           message: 'Invalid token',
         });
+        return; // Prevent further execution
       }
     } catch (error) {
       console.error('Error during token verification:', error);
