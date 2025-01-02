@@ -6,7 +6,7 @@ const router = express.Router();
 
 // All routes require authentication and admin privileges
 router.use(auth, adminAuth);
-
+router.post('/', userController.createUser);
 router.get('/', userController.getUsers);
 router.get('/me', userController.getCurrentUser);
 router.put('/:id', userController.updateUser);
